@@ -55,22 +55,26 @@ struct Node* deleteLastNode(struct Node* head)
         p = p->next;
         q = q->next;
     }
-    p->next = q->next; 
+    p->next = NULL; 
     free(q);
     return head;
 }
 
-struct Node* deleteValue(struct Node* head, int data)
+struct Node* deleteByValue(struct Node* head, int data)
 {
     struct Node* p = head;
     struct Node* q = head->next;
-    while(q->data!=data)
+    while(q->data!=data && q->next!=NULL)
     {
         p = p->next;
         q = q->next;
     }
-    p->next = q->next; 
-    free(q);
+    if(q->data==data)
+    {
+        p->next = q->next; 
+        free(q);
+    }
+    
     return head;
 }
 
@@ -108,7 +112,7 @@ int main(void) {
     //head = deleteFirst(head);
     //head = deleteAtIndex(head,2);
     //head = deleteLastNode(head);
-    head = deleteValue(head,41);
+    head = deleteByValue(head,5);
     linkedListTraversal(head);
 
 
